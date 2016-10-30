@@ -1,0 +1,107 @@
+<div class="container">
+	<div class="path clearfix">
+		<div class="pull-left text-left">
+			<a href="/"><i class="fa fa-home"></i> Home</a> / <a href="/catalogue">Catalogue</a>
+		</div>
+		<div class="pull-left filter">
+			<div class="pull-left">Filter:</div>
+			<div class="pull-left filter-option">Men <a href="#"><i class="fa fa-times"></i></a></div>
+			<div class="pull-left filter-option">Accessories <a href="#"><i class="fa fa-times"></i></a></div>
+		</div>
+		<div class="pull-right text-left">
+			<div class="dropdown">
+				<a href="/catalogue" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sort by: <?php echo $this->sortType ?> <span class="caret"></span></a>
+				<ul class="dropdown-menu dropdown-menu-right">
+					<li><a href="javascript:appendParam('sort', '1')">Popularity</a></li>
+					<li><a href="javascript:appendParam('sort', '2')">Price (high-low)</a></li>
+					<li><a href="javascript:appendParam('sort', '3')">Price (low-high)</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- catalogue Section -->
+<section class="catalogue text-center">
+	<div class="container">
+		<div class="col-md-3 filter-pane text-left">
+			<h5>Gender</h5>
+			<ul>
+				<li><a href="#">Men <span>234</span></a></li>
+				<li><a href="#">Woman <span>43</span></a></li>
+				<li><a href="#">Kids <span>87</span></a></li>
+			</ul>
+			<hr noshade>
+			<h5>Categories</h5>
+			<ul>
+				<li><a href="#">Accessories <span>433</span></a></li>
+				<li><a href="#">Shoes <span>211</span></a></li>
+				<li><a href="#">Hoodies &amp; Pullovers <span>8</span></a></li>
+				<li><a href="#">Jackets <span>119</span></a></li>
+				<li><a href="#">Pants <span>22</span></a></li>
+				<li><a href="#">Shorts <span>10</span></a></li>
+				<li><a href="#">Socks <span>89</span></a></li>
+			</ul>
+			<hr noshade>
+			<h5>Brands</h5>
+			<ul>
+				<li><a href="javascript:appendParam('filter', '[brand=Adidas]')">Adidas <span>212</span></a></li>
+				<li><a href="javascript:appendParam('filter', '[brand=Nike]')">Nike <span>123</span></a></li>
+				<li><a href="javascript:appendParam('filter', '[brand=Puma]')">Puma <span>88</span></a></li>
+				<li><a href="javascript:appendParam('filter', '[brand=Umbro]')">Umbro <span>98</span></a></li>
+				<li><a href="javascript:appendParam('filter', '[brand=Reebok]')">Reebok <span>25</span></a></li>
+				<li><a href="javascript:appendParam('filter', '[brand=NewBalance]')">New Balance <span>54</span></a></li>
+			</ul>
+			<hr noshade>
+			<h5>Price</h5>
+			<ul>
+				<li>
+					<div class="slider-range">
+						<div class="range-from" data-price="0" onclick="rangeFromClick()"></div>
+						<div class="range-to" data-price="3000"></div>
+					</div>
+				</li>
+			</ul>
+		</div>
+
+		<div class="col-md-9">
+		<?php for ($i = 0; $i < count($this->products); $i++): ?>
+		<?php if ($i%3 == 0 && $i != 0): ?>
+		</div>
+		<?php endif; ?>
+		<?php if($i%3 == 0): ?>
+		<div class="row">
+			<?php endif; ?>
+			<div class="col-md-4">
+				<div class="product-card">
+					<a href="/catalogue/view/id/<?php echo $this->escape($this->products[$i]['id']) ?>" class="product-view"><i class="fa fa-search-plus"></i> Quick view</a>
+					<img src="/img/products/<?php echo $this->escape($this->products[$i]['photo']) ?>">
+					<div class="product-info">
+						<h5><?php echo $this->escape($this->products[$i]['title']) ?></h5>
+						<p><?php echo $this->escape($this->products[$i]['description']) ?></p>
+						<hr>
+						<div class="clearfix">
+							<div class="pull-left product-price">$<?php echo $this->escape($this->products[$i]['price']) ?></div>
+							<div class="pull-right product-add-cart"><a href="javascript:addToCart(<?php echo $this->escape($this->products[$i]['id']) ?>)"><i class="fa fa-shopping-cart"></i> Add to cart</a></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<?php endfor; ?>
+		</div>
+		<hr noshade>
+
+		<ul class="pagination">
+			<li><a href="?page=<?php echo $this->activePage-1 ?>"><i class="fa fa-arrow-left"></i></a></li>
+			<li class="active"><a href="?page=<?php echo $this->activePage ?>"><?php echo $this->activePage ?></a></li>
+			<li><a href="?page=<?php echo $this->activePage+1 ?>"><i class="fa fa-arrow-right"></i></a></li>
+			<!--
+			<li class="active"><a href="#">1</a></li>
+			<li><a href="#">2</a></li>
+			<li><a href="#">3</a></li>
+			<li><a href="#">4</a></li>
+			<li><a href="#">5</a></li>
+			-->
+		</ul>
+	</div>
+</section>

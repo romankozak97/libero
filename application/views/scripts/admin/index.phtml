@@ -1,0 +1,32 @@
+<?php
+$productsUrl = $this->url(array('controller' => 'admin', 'action' => 'showproducts'));
+$categoriesUrl = $this->url(array('controller' => 'admin', 'action' => 'showcategories'));
+$ordersUrl = $this->url(array('controller' => 'admin', 'action' => 'showorders'));
+?>
+
+<section class="admin-home text-center">
+		<div class="container">
+				<h1>Welcome, Administrator!</h1>
+				<h5>Please, select one of these options to continue</h5>
+				<div class="row">
+					<div class="col-md-4">
+							<a href="<?php echo $productsUrl ?>" class="admin-home-link">
+									<i class="fa fa-shopping-cart fa-3x"></i><br>
+									<h4>Manage products</h4>
+							</a>
+					</div>
+					<div class="col-md-4">
+							<a href="<?php echo $categoriesUrl ?>" class="admin-home-link">
+									<i class="fa fa-list fa-3x"></i><br>
+									<h4>Manage categories</h4>
+							</a>
+					</div>
+					<div class="col-md-4">
+							<a href="<?php echo $ordersUrl ?>" class="admin-home-link">
+									<i class="fa fa-check-circle fa-3x"></i><br>
+									<h4>Manage orders</h4>
+							</a>
+					</div>
+				</div>
+		</div>
+</section>

@@ -1,0 +1,28 @@
+<div class="container">
+	<div class="path clearfix">
+		<div class="pull-left text-left">
+			<a href="/admin"><i class="fa fa-home"></i> Admin</a> / <a href="/showcategories">Categories</a>
+		</div>
+	</div>
+	<a href="/admin/addcategory" class="login-btn pull-left"><i class="fa fa-plus"></i> Add</a>
+
+	<table class="table table-hover table-responsive">
+		<tr>
+			<th>ID</th>
+			<th>Title</th>
+			<th>Items Count</th>
+			<th>Actions</th>
+		</tr>
+		<?php foreach($this->categories as $category): ?>
+			<tr>
+				<td><?php echo $category['id'] ?></td>
+				<td><?php echo $category['title'] ?></td>
+				<td><?php echo count(json_decode($category['items'])) ?></td>
+				<td>
+					<a href="/admin/editcategory/id/<?php echo $category['id'] ?>" title="Edit"><i class="fa fa-pencil"></i></a>
+					<a href="javascript:deleteCategory(<?php echo $category['id'] ?>)" title="Delete"><i class="fa fa-remove"></i></a>
+				</td>
+			</tr>
+		<?php endforeach; ?>
+	</table>
+</div>

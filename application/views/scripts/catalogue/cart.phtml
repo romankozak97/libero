@@ -1,0 +1,37 @@
+<div class="container">
+	<div class="path clearfix">
+		<div class="pull-left text-left">
+			<a href="/"><i class="fa fa-home"></i> Home</a> / <a href="/cart">Cart</a>
+		</div>
+	</div>
+</div>
+
+<section class="cart">
+	<div class="container">
+		<div class="clearfix">
+			<h2 class="pull-left"><i class="fa fa-shopping-cart" style="margin-right:10px"></i> Your cart (<?php echo $this->count ?>)</h2>
+			<h3 class="pull-right">Total: $<?php echo $this->totalPrice ?></h3>
+		</div>
+		<hr>
+		<?php if ($this->count == 0): ?>
+			<h3 class="not-found">There's no items in your cart. Try to add one</h3>
+		<?php else: ?>
+		<?php foreach($this->cartItems as $item): ?>
+		<div class="cart-item clearfix">
+			<div class="pull-left"><img src="/img/products/<?php echo $item['photo'] ?>"></div>
+			<div class="pull-left">
+				<h3><?php echo $item['title'] ?></h3>
+				<p><?php echo $item['description'] ?></p>
+				<p class="product-price">$<?php echo $item['price'] ?></p>
+				<button class="remove-btn" onclick="removeFromCart(<?php echo $item['id'] ?>)">Remove <i class="fa fa-times"></i></button>
+			</div>
+		</div>
+		<hr>
+		<?php endforeach; ?>
+		<div class="clearfix">
+			<a href="/catalogue/checkout" class="checkout-btn pull-left"><i class="fa fa-check"></i>Checkout</a>
+			<h3 class="pull-right">Total: $<?php echo $this->totalPrice ?></h3>
+		</div>
+		<?php endif; ?>
+	</div>
+</section>

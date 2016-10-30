@@ -1,0 +1,42 @@
+<div class="container">
+	<div class="path clearfix">
+		<div class="pull-left text-left">
+			<a href="/"><i class="fa fa-home"></i> Home</a> / <a href="/auth">Account</a> / <a href="/auth/edit">Edit</a>
+		</div>
+	</div>
+</div>
+
+<section class="account">
+	<div class="container">
+		<div class="col-md-4 col-lg-4 sidebar">
+			<h1><?php echo $this->userName ?></h1>
+			<p>User ID: <?php echo $this->userId ?></p>
+			<hr noshade>
+			<a href="/auth/edit"><i class="fa fa-pencil"></i> Edit information</a>
+			<hr noshade>
+			<a href="#"><i class="fa fa-list"></i> Orders in progress</a>
+			<hr noshade>
+			<?php if($this->userRole == "admin"): ?>
+				<a href="/admin" target="_blank"><i class="fa fa-lock"></i> Admin section</a>
+				<hr noshade>
+			<?php endif; ?>
+			<a href="/auth/logout"><i class="fa fa-sign-out"></i> Logout</a>
+		</div>
+		<div class="col-md-8 col-lg-8 edit-area">
+			<h4>Edit personal info</h4>
+			<p>Change information about yourself</p>
+			<?php echo $this->form ?>
+			<!--<form class="edit-form" method="POST">
+				<h4>Edit information</h4>
+				<p>Change information about yourself</p>
+				<input type="text" class="login-input" placeholder="Name" value="Roman Kozak">
+				<input type="email" class="login-input" placeholder="Email" value="admin@test.com">
+				<input type="password" class="login-input" placeholder="Current password">
+				<input type="password" class="login-input" placeholder="New password">
+				<div class="clearfix">
+					<button type="submit" class="login-btn pull-left">Save</button>
+				</div>
+			</form>-->
+		</div>
+	</div>
+</section>

@@ -1,0 +1,21 @@
+<div class="container">
+	<div class="path clearfix">
+		<div class="pull-left text-left">
+			<a href="/"><i class="fa fa-home"></i> Home</a> / <a href="/cart">Cart</a> / <a href="/checkout">Checkout</a>
+		</div>
+	</div>
+</div>
+
+<div class="login-box text-left">
+	<div class="login-form center-block">
+		<?php if($this->errMessage): ?>
+			<div class="alert alert-danger">
+				<?php echo $this->errMessage ?>
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			</div>
+		<?php endif; ?>
+		<h4>Checkout</h4>
+		<p>You selected <?php echo $this->count ?> item(-s) for total price $<?php echo $this->totalPrice ?></p>
+		<?php echo $this->form; ?>
+	</div>
+</div>

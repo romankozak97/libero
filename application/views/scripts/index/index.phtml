@@ -1,0 +1,54 @@
+<!-- jumbotron section -->
+<section class="jumbotron">
+    <div class="pattern-layer">
+        <div class="container">
+            <div class="content-layer">
+                <h2>Get sportswear from world top brands</h2>
+                <button onclick="goto('catalogue')">Get it now <i class="fa fa-angle-right"></i></button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- recommended Section -->
+<section class="recommended text-center">
+    <h3 class="section-header">Recommended</h3>
+    <div class="container">
+    <?php for($i = 0; $i < count($this->products); $i++): ?>
+    <?php if($i%4 == 0 && $i != 0): ?>
+    </div>
+    <?php endif; ?>
+    <?php if($i%4 == 0): ?>
+    <div class="row">
+        <?php endif; ?>
+        <div class="col-md-3">
+            <div class="product-card">
+                <a href="/catalogue/view/id/<?php echo $this->escape($this->products[$i]['id']) ?>" class="product-view"><i class="fa fa-search-plus"></i> Quick view</a>
+                <img src="/img/products/<?php echo $this->escape($this->products[$i]['photo']) ?>">
+                <div class="product-info">
+                    <h5><?php echo $this->escape($this->products[$i]['title']) ?></h5>
+                    <p><?php echo $this->escape($this->products[$i]['description']) ?></p>
+                    <hr>
+                    <div class="clearfix">
+                        <div class="pull-left product-price">$<?php echo $this->escape($this->products[$i]['price']) ?></div>
+                        <div class="pull-right product-add-cart"><a href="javascript:addToCart(<?php echo $this->escape($this->products[$i]['id']) ?>)"><i class="fa fa-shopping-cart"></i> Add to cart</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php endfor; ?>
+    </div>
+    </div>
+    </div>
+</section>
+<hr>
+<section class="brands text-center">
+    <div class="container-fluid">
+        <div class="col-md-2 col-sm-2 brand"><img src="/img/adidas.png"></div>
+        <div class="col-md-2 col-sm-2 brand"><img src="/img/nike.png"></div>
+        <div class="col-md-2 col-sm-2 brand"><img src="/img/puma.png"></div>
+        <div class="col-md-2 col-sm-2 brand"><img src="/img/umbro.png"></div>
+        <div class="col-md-2 col-sm-2 brand"><img src="/img/reebok.png"></div>
+        <div class="col-md-2 col-sm-2 brand"><img src="/img/newbalance.png"></div>
+    </div>
+</section>

@@ -1,0 +1,56 @@
+<div class="container">
+	<div class="path clearfix">
+		<div class="pull-left text-left">
+			<a href="/"><i class="fa fa-home"></i> Home</a> / <a href="/catalogue">Catalogue</a> / <a href="/catalogue/view"><?php echo $this->escape($this->info['title']) ?></a>
+		</div>
+	</div>
+</div>
+
+<section class="product">
+	<div class="container">
+		<div class="col-md-6">
+			<img src="/img/products/<?php echo $this->escape($this->info['photo']) ?>">
+		</div>
+		<div class="col-md-6">
+			<h1><?php echo $this->escape($this->info['title']) ?></h1>
+			<h4>$<?php echo $this->escape($this->info['price']) ?></h4>
+			<hr>
+			<div class="product-details">
+				<p>Brand: <?php echo $this->escape($this->info['brand']) ?></p>
+				<p><?php echo $this->escape($this->info['description']) ?></p>
+				<p>Size: <?php echo $this->escape($this->info['size']) ?></p>
+			</div>
+			<button class="buy-btn" onclick="addToCart(<?php echo $this->escape($this->info['id']) ?>)"><i class="fa fa-shopping-cart"></i> Add to cart</button>
+		</div>
+	</div>
+</section>
+<hr>
+
+<!-- recommended Section -->
+<section class="recommended text-center">
+	<div class="container">
+		<?php for($i = 0; $i < 4; $i++): ?>
+		<?php if($i%4 == 0 && $i != 0): ?>
+		</div>
+		<?php endif; ?>
+		<?php if($i%4 == 0): ?>
+		<div class="row">
+			<?php endif; ?>
+			<div class="col-md-3">
+				<div class="product-card">
+					<a href="/catalogue/view/id/<?php echo $this->escape($this->products[$i]['id']) ?>" class="product-view"><i class="fa fa-search-plus"></i> Quick view</a>
+					<img src="/img/products/<?php echo $this->escape($this->products[$i]['photo']) ?>">
+					<div class="product-info">
+						<h5><?php echo $this->escape($this->products[$i]['title']) ?></h5>
+						<p><?php echo $this->escape($this->products[$i]['description']) ?></p>
+						<hr>
+						<div class="clearfix">
+							<div class="pull-left product-price">$<?php echo $this->escape($this->products[$i]['price']) ?></div>
+							<div class="pull-right product-add-cart"><a href="javascript:addToCart(<?php echo $this->escape($this->products[$i]['id']) ?>)"><i class="fa fa-shopping-cart"></i> Add to cart</a></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<?php endfor; ?>
+	</div>
+</section>

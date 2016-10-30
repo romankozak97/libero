@@ -1,0 +1,20 @@
+<div class="container">
+	<div class="path clearfix">
+		<div class="pull-left text-left">
+			<a href="/admin"><i class="fa fa-home"></i> Admin</a> / <a href="/admin/showcategories">Categories</a> / <a href="/admin/editcategory/id/1">Accessories</a>
+		</div>
+	</div>
+
+	<div class="add-box login-box text-left">
+		<div class="login-form">
+			<?php if($this->errMessage): ?>
+				<div class="alert alert-danger">
+					<?php echo $this->errMessage ?>
+					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				</div>
+			<?php endif; ?>
+			<h4>Edit category</h4>
+			<?php echo $this->form; ?>
+		</div>
+	</div>
+</div>

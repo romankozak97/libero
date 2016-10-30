@@ -1,0 +1,181 @@
+<?php
+// TODO: cookies confirmation
+#$defaultNamespace = new Zend_Session_Namespace();
+#$defaultNamespace->isCookieConfirmed = false;
+
+$cart = new Zend_Session_Namespace('Cart');
+$cartCount = count(json_decode($cart->content));
+
+$homeUrl = $this->url(array('controller' => 'index', 'action' => 'index'));
+$catalogueUrl = $this->url(array('controller' => 'catalogue', 'action' => 'index'));
+$contactUrl = $this->url(array('controller' => 'index', 'action' => 'contact'));
+$accountUrl = $this->url(array('controller' => 'auth', 'action' => 'index'));
+$loginUrl = $this->url(array('controller' => 'auth', 'action' => 'login'));
+$logoutUrl = $this->url(array('controller' => 'auth', 'action' => 'logout'));
+$cartUrl = $this->url(array('controller'=>'catalogue', 'action'=>'cart'));
+
+$this->headTitle()->setSeparator(' | ');
+$this->headTitle('Libero - sports online store');
+echo $this->doctype();
+?>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width initial-scale=1.0">
+    <?php echo $this->headTitle() ?>
+    <?php echo $this->headLink()->setStylesheet($this->baseUrl().'/css/style.css'); ?>
+    <?php echo $this->headLink()->setStylesheet($this->baseUrl().'/css/bootstrap.css'); ?>
+    <?php echo $this->headLink()->setStylesheet($this->baseUrl().'/css/font-awesome.min.css'); ?>
+    <link rel="shortcut icon" href=""/>
+    <?php echo $this->headScript()->setFile($this->baseUrl().'/js/jquery.js'); ?>
+    <?php echo $this->headScript()->setFile($this->baseUrl().'/js/jquery-ui.js'); ?>
+    <?php echo $this->headScript()->setFile($this->baseUrl().'/js/bootstrap.js'); ?>
+    <?php echo $this->headScript()->setFile($this->baseUrl().'/js/main.js'); ?>
+    <?php echo $this->headScript()->setFile('https://www.google.com/recaptcha/api.js'); ?>
+</head>
+<body>
+<!-- navbar nav -->
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/"><img src="/img/logo.png" alt="Logo"></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-left">
+                <li><a href="<?php echo $homeUrl ?>">Home</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Men <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/catalogue">Accessories</a></li>
+                        <li><a href="#">Shoes</a></li>
+                        <li><a href="#">Hoodies &amp; Pullovers</a></li>
+                        <li><a href="#">Jackets</a></li>
+                        <li><a href="#">Pants</a></li>
+                        <li><a href="#">Shorts</a></li>
+                        <li><a href="#">Socks</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Adidas</a></li>
+                        <li><a href="#">Nike</a></li>
+                        <li><a href="#">Puma</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Women <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="<?php echo $catalogueUrl ?>">Accessories</a></li>
+                        <li><a href="#">Shoes</a></li>
+                        <li><a href="#">Hoodies &amp; Pullovers</a></li>
+                        <li><a href="#">Jackets</a></li>
+                        <li><a href="#">Pants</a></li>
+                        <li><a href="#">Shorts</a></li>
+                        <li><a href="#">Socks</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Adidas</a></li>
+                        <li><a href="#">Nike</a></li>
+                        <li><a href="#">Puma</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Kids <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="<?php echo $catalogueUrl ?>">Accessories</a></li>
+                        <li><a href="#">Shoes</a></li>
+                        <li><a href="#">Hoodies &amp; Pullovers</a></li>
+                        <li><a href="#">Jackets</a></li>
+                        <li><a href="#">Pants</a></li>
+                        <li><a href="#">Shorts</a></li>
+                        <li><a href="#">Socks</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Adidas</a></li>
+                        <li><a href="#">Nike</a></li>
+                        <li><a href="#">Puma</a></li>
+                    </ul>
+                </li>
+                <li><a href="<?php echo $contactUrl ?>">Contact us</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <?php if (Zend_Auth::getInstance()->hasIdentity()): ?>
+                <li><a href="<?php echo $accountUrl ?>">My account</a></li>
+                <li><a href="<?php echo $logoutUrl ?>"><i class="fa fa-sign-out"></i></a></li>
+                <?php else: ?>
+                <li><a href="<?php echo $loginUrl ?>">Log in</a></li>
+                <?php endif; ?>
+                <li><a href="<?php echo $cartUrl ?>"><i class="fa fa fa-shopping-cart"></i> <span id="cart-count"><?php echo $cartCount ?></span></a></li>
+            </ul>
+            <form class="navbar-form navbar-right" action="/index/search">
+                <div class="form-group">
+                    <input type="text" name="q" class="search-input" onfocus="searchFocus()" onblur="searchBlur()" placeholder="Search" value="<?php echo $this->query ?>">
+                    <div class="search-icon"><i class="fa fa-search"></i></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</nav>
+<?php echo $this->layout()->content; ?>
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <h6>Men</h6>
+                <ul>
+                    <li><a href="/catalogue">Accessories</a></li>
+                    <li><a href="#">Shoes</a></li>
+                    <li><a href="#">Hoodies &amp; Pullovers</a>
+                    <li><a href="#">Jackets</a></li>
+                    <li><a href="#">Pants</a></li>
+                    <li><a href="#">Shorts</a></li>
+                    <li><a href="#">Socks</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h6>Women</h6>
+                <ul>
+                    <li><a href="/catalogue">Accessories</a></li>
+                    <li><a href="#">Shoes</a></li>
+                    <li><a href="#">Hoodies &amp; Pullovers</a>
+                    <li><a href="#">Jackets</a></li>
+                    <li><a href="#">Pants</a></li>
+                    <li><a href="#">Shorts</a></li>
+                    <li><a href="#">Socks</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h6>Kids</h6>
+                <ul>
+                    <li><a href="/catalogue">Accessories</a></li>
+                    <li><a href="#">Shoes</a></li>
+                    <li><a href="#">Hoodies &amp; Pullovers</a>
+                    <li><a href="#">Jackets</a></li>
+                    <li><a href="#">Pants</a></li>
+                    <li><a href="#">Shorts</a></li>
+                    <li><a href="#">Socks</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h6>About</h6>
+                
+            </div>
+        </div>
+        <div class="copyright pull-left">Copyright &copy; 2016 Libero. All rights reserved.</div>
+        <a href="http://youtube.com" target="_blank" class="pull-right social-link social-youtube"><i class="fa fa-youtube"></i></a>
+        <a href="http://vk.com" target="_blank" class="pull-right social-link social-vk"><i class="fa fa-vk"></i></a>
+        <a href="http://twitter.com" target="_blank" class="pull-right social-link social-twitter"><i class="fa fa-twitter"></i></a>
+        <a href="http://facebook.com" target="_blank" class="pull-right social-link social-fb"><i class="fa fa-facebook"></i></a>
+    </div>
+    <!--<div class="cookies-popup">
+        <div class="container">
+            <span>We use cookies to improve your user experience. By using the website you agree to the terms of <a href="#">Privacy and cookies</a></span>
+            <button onclick="cookiesPopupClose()">OK</button>
+        </div>
+    </div>-->
+</footer>
+</body>
+</html>

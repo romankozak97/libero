@@ -85,6 +85,7 @@ function appendParam(name, value)
     }
 }
 
+/** AJAX methods **/
 function changeStatus(id)
 {
     var index = document.getElementById('status-select').selectedIndex;
@@ -97,7 +98,6 @@ function changeStatus(id)
     });
 }
 
-/** AJAX methods **/
 function addToCart(id)
 {
     $.ajax({

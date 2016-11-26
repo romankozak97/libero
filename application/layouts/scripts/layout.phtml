@@ -1,8 +1,4 @@
 <?php
-// TODO: cookies confirmation
-#$defaultNamespace = new Zend_Session_Namespace();
-#$defaultNamespace->isCookieConfirmed = false;
-
 $cart = new Zend_Session_Namespace('Cart');
 $cartCount = count(json_decode($cart->content));
 
@@ -13,6 +9,9 @@ $accountUrl = $this->url(array('controller' => 'auth', 'action' => 'index'));
 $loginUrl = $this->url(array('controller' => 'auth', 'action' => 'login'));
 $logoutUrl = $this->url(array('controller' => 'auth', 'action' => 'logout'));
 $cartUrl = $this->url(array('controller'=>'catalogue', 'action'=>'cart'));
+
+$table = new Application_Model_DbTable_Categories();
+$this->categories = $table->getCategoriesList();
 
 $this->headTitle()->setSeparator(' | ');
 $this->headTitle('Libero - sports online store');
@@ -53,13 +52,9 @@ echo $this->doctype();
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Men <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="/catalogue">Accessories</a></li>
-                        <li><a href="#">Shoes</a></li>
-                        <li><a href="#">Hoodies &amp; Pullovers</a></li>
-                        <li><a href="#">Jackets</a></li>
-                        <li><a href="#">Pants</a></li>
-                        <li><a href="#">Shorts</a></li>
-                        <li><a href="#">Socks</a></li>
+                        <?php foreach($this->categories as $category): ?>
+                            <li><a href="/catalogue?category=<?php echo $category['id'] ?>"><?php echo $category['title'] ?></a></li>
+                        <?php endforeach; ?>
                         <li role="separator" class="divider"></li>
                         <li><a href="#">Adidas</a></li>
                         <li><a href="#">Nike</a></li>
@@ -69,13 +64,9 @@ echo $this->doctype();
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Women <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="<?php echo $catalogueUrl ?>">Accessories</a></li>
-                        <li><a href="#">Shoes</a></li>
-                        <li><a href="#">Hoodies &amp; Pullovers</a></li>
-                        <li><a href="#">Jackets</a></li>
-                        <li><a href="#">Pants</a></li>
-                        <li><a href="#">Shorts</a></li>
-                        <li><a href="#">Socks</a></li>
+                        <?php foreach($this->categories as $category): ?>
+                            <li><a href="/catalogue?category=<?php echo $category['id'] ?>"><?php echo $category['title'] ?></a></li>
+                        <?php endforeach; ?>
                         <li role="separator" class="divider"></li>
                         <li><a href="#">Adidas</a></li>
                         <li><a href="#">Nike</a></li>
@@ -85,13 +76,9 @@ echo $this->doctype();
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Kids <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="<?php echo $catalogueUrl ?>">Accessories</a></li>
-                        <li><a href="#">Shoes</a></li>
-                        <li><a href="#">Hoodies &amp; Pullovers</a></li>
-                        <li><a href="#">Jackets</a></li>
-                        <li><a href="#">Pants</a></li>
-                        <li><a href="#">Shorts</a></li>
-                        <li><a href="#">Socks</a></li>
+                        <?php foreach($this->categories as $category): ?>
+                            <li><a href="/catalogue?category=<?php echo $category['id'] ?>"><?php echo $category['title'] ?></a></li>
+                        <?php endforeach; ?>
                         <li role="separator" class="divider"></li>
                         <li><a href="#">Adidas</a></li>
                         <li><a href="#">Nike</a></li>

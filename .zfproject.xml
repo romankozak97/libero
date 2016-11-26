@@ -24,6 +24,7 @@
           <actionMethod actionName="logout"/>
           <actionMethod actionName="register"/>
           <actionMethod actionName="edit"/>
+          <actionMethod actionName="orders"/>
         </controllerFile>
         <controllerFile controllerName="Catalogue">
           <actionMethod actionName="index"/>
@@ -172,6 +173,9 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Admin">
             <viewScriptFile forActionName="editstatus"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Auth">
+            <viewScriptFile forActionName="orders"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>

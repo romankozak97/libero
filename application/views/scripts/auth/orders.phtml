@@ -1,7 +1,10 @@
+<?php
+$statuses = array('Inactive', 'Active', 'In progress', 'Completed');
+?>
 <div class="container">
 	<div class="path clearfix">
 		<div class="pull-left text-left">
-			<a href="/"><i class="fa fa-home"></i> Home</a> / <a href="/auth">Account</a> / <a href="/auth/edit">Edit</a>
+			<a href="/"><i class="fa fa-home"></i> Home</a> / <a href="/auth">Account</a> / <a href="/auth/orders">Orders</a>
 		</div>
 	</div>
 </div>
@@ -23,9 +26,27 @@
 			<a href="/auth/logout"><i class="fa fa-sign-out"></i> Logout</a>
 		</div>
 		<div class="col-md-8 col-lg-8 edit-area">
-			<h4>Edit personal info</h4>
-			<p>Change information about yourself</p>
-			<?php echo $this->form ?>
+			<h4>Orders in progress</h4>
+			<table class="table table-responsive">
+				<tr>
+					<th>ID</th>
+					<th>Date</th>
+					<th>Phone</th>
+					<th>Email</th>
+					<th>Comment</th>
+					<th>Status</th>
+				</tr>
+			<?php foreach ($this->orders as $order): ?>
+				<tr>
+					<td><?php echo $order['id'] ?></td>
+					<td><?php echo $order['date'] ?></td>
+					<td><?php echo $order['phone'] ?></td>
+					<td><?php echo $order['email'] ?></td>
+					<td><?php echo $order['comment'] ?></td>
+					<td><?php echo $statuses[$order['status']] ?></td>
+				</tr>
+			<?php endforeach; ?>
+			</table>
 		</div>
 	</div>
 </section>

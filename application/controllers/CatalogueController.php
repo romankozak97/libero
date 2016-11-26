@@ -15,6 +15,7 @@ class CatalogueController extends Zend_Controller_Action
 
         // init DB
         $products = new Application_Model_DbTable_Products();
+        $categories = new Application_Model_DbTable_Categories();
 
         // get GET parameter "sort"
         $sortType = $this->_getParam('sort');
@@ -24,9 +25,13 @@ class CatalogueController extends Zend_Controller_Action
         $page = $this->_getParam('page');
         !isset($page) ? $page = 1: $page = intval($page);
 
+        // get GET parameter "category"
+        $category = $this->_getParam('category');
+        !isset($category) ? $category = null: $category = intval($category);
+
         // get GET parameter "brand"
         $brand = $this->_getParam('brand');
-        !empty($brand) ? $brand = 0: $brand = strval($brand);
+        !isset($brand) ? $brand = null: $brand = strval($brand);
 
 
         // switch parameters for view
@@ -51,12 +56,20 @@ class CatalogueController extends Zend_Controller_Action
         // if sort parameter is set
         if (isset($sortType))
             // get sorted products for catalogue view
-            $productsArray  = $products->getProductsByPage($page, $sortType, $brand);
+            $productsArray  = $products->getProductsByPage($page, $sortType);
         else
             // get all products for catalogue view
-            $productsArray = $products->getProductsByPage($page, 0, $brand);
+            $productsArray = $products->getProductsByPage($page, 0);
+
+        if ($brand != null)
+            $productsArray = $products->getProductsByBrand($page, $brand);
+
+        if ($category != null)
+            $productsArray = $products->getProductsByCategory($page, $category);
 
         $this->view->products = $productsArray;
+        $this->view->categories = $categories->getCategoriesList();
+        $this->view->debug = $brand;
 
         #$productsCount = $products->getProductsCount()[0]['count(*)'];
         #$this->view->pagesCount = ceil($productsCount/Zend_Registry::get('limit'));
@@ -215,7 +228,8 @@ class CatalogueController extends Zend_Controller_Action
                 $phone = $this->getRequest()->getPost('phone');
                 $email = $this->getRequest()->getPost('email');
                 $comment = $this->getRequest()->getPost('comment');
-                $items = json_encode($cartList);
+                $items = json_decode($cartList);
+
 
                 /*$this->view->items = $items;
                 $this->view->firstName = $firstName;
@@ -223,6 +237,8 @@ class CatalogueController extends Zend_Controller_Action
                 $this->view->phone = $phone;
                 $this->view->email = $email;
                 $this->view->comment = $comment;*/
+
+                $this->view->debug = $cart->content;
 
                 // init DB
                 $orders = new Application_Model_DbTable_Orders();

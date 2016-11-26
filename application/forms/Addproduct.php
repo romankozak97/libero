@@ -6,7 +6,8 @@ class Application_Form_Addproduct extends Zend_Form
     public function init()
     {
         $this->setName('addproduct');
-        $this->setAttrib('class', 'login-form clearfix center-block');
+        $this->setAttrib('class', 'login-form clearfix center-block')
+            ->setAttrib('enctype', 'multipart/form-data');
         $isEmptyMessage = 'Value is required and can\'t be empty!';
 
         $title = new Zend_Form_Element_Text('title');
@@ -67,9 +68,10 @@ class Application_Form_Addproduct extends Zend_Form
         $photo = new Zend_Form_Element_File('photo');
         $photo->setAttrib('class', 'login-input')
             ->setRequired(true)
-            ->addFilter('StripTags')
-            ->addFilter('StringTrim')
-            ->addValidator('NotEmpty', true, array('messages' => array('isEmpty' => $isEmptyMessage)));
+            ->addValidator('Count', false, 1)
+            ->addValidator('Size', false, 512000)
+            ->setMaxFileSize(512000)
+            ->addValidator('Extension', false, 'jpg,png,gif');
 
         $submit = new Zend_Form_Element_Submit('add');
         $submit->setAttrib('class', 'login-btn pull-left');

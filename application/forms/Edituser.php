@@ -20,6 +20,7 @@ class Application_Form_Edituser extends Zend_Form
         $email = new Zend_Form_Element_Text('email');
         $email->setAttrib('class', 'login-input')
             ->setAttrib('placeholder', 'Email')
+            ->setAttrib('disabled', 'disabled')
             ->setRequired(true)
             ->addFilter('StripTags')
             ->addFilter('StringTrim')

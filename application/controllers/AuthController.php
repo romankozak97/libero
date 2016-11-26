@@ -139,8 +139,34 @@ class AuthController extends Zend_Controller_Action
         $this->view->userEmail = $identity->email;
         $this->view->userRole = $identity->role;
 
-        // init form and put it to view
+        // init DB
+        $table = new Application_Model_DbTable_Users();
+
+        // get product row by ID
+        $product = $table->getUserById($identity->id);
+
+        // init form with values and put it to view
         $form = new Application_Form_Edituser();
+        $form->name->setValue($identity->name);
+        $form->email->setValue($identity->email);
         $this->view->form = $form;
     }
+
+    public function ordersAction()
+    {
+        // get user data from storage
+        $identity = Zend_Auth::getInstance()->getStorage()->read();
+        $this->view->userId = $identity->id;
+        $this->view->userName = $identity->name;
+        $this->view->userEmail = $identity->email;
+        $this->view->userRole = $identity->role;
+
+        // init DB
+        $table = new Application_Model_DbTable_Orders();
+
+        // get product row by ID
+        $this->view->orders = $table->getOrdersByUserId($identity->id);
+    }
 }
+
+

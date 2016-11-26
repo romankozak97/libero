@@ -61,7 +61,6 @@ class Application_Form_Checkout extends Zend_Form
             ->setAttrib('onfocus', 'loginPassFocus()')
             ->setAttrib('onblur', 'loginPassBlur()')
             ->setAttrib('style', 'height:150px;')
-            ->setRequired(true)
             ->addFilter('StripTags')
             ->addFilter('StringTrim');
 

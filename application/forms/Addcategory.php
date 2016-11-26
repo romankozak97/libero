@@ -20,14 +20,6 @@ class Application_Form_Addcategory extends Zend_Form
         $items = new Zend_Form_Element_Select('items');
         $items->setAttrib('class', 'login-input')
             ->setAttrib('multiple', 'multiple')
-            ->setMultiOptions(array(
-                '0' => 'Accessories',
-                '1' => 'Shoes',
-                '2' => 'Hoodies & Pullovers',
-                '3' => 'Jackets',
-                '4' => 'Pants',
-                '5' => 'Shorts'
-            ))
             ->setRequired(true)
             ->addFilter('StripTags')
             ->addFilter('StringTrim')

@@ -12,6 +12,12 @@
 			<h2 class="pull-left"><i class="fa fa-shopping-cart" style="margin-right:10px"></i> Your cart (<?php echo $this->count ?>)</h2>
 			<h3 class="pull-right">Total: $<?php echo $this->totalPrice ?></h3>
 		</div>
+		<?php if($this->successMessage): ?>
+			<div class="alert alert-success">
+				<?php echo $this->successMessage ?>
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			</div>
+		<?php endif; ?>
 		<hr>
 		<?php if ($this->count == 0): ?>
 			<h3 class="not-found">There's no items in your cart. Try to add one</h3>

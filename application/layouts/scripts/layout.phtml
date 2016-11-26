@@ -97,7 +97,7 @@ echo $this->doctype();
                 <?php endif; ?>
                 <li><a href="<?php echo $cartUrl ?>"><i class="fa fa fa-shopping-cart"></i> <span id="cart-count"><?php echo $cartCount ?></span></a></li>
             </ul>
-            <form class="navbar-form navbar-right" action="/index/search">
+            <form class="navbar-form navbar-right" action="/index/search" onsubmit="searchSubmit(event)">
                 <div class="form-group">
                     <input type="text" name="q" class="search-input" onfocus="searchFocus()" onblur="searchBlur()" placeholder="Search" value="<?php echo $this->query ?>">
                     <div class="search-icon"><i class="fa fa-search"></i></div>
@@ -157,12 +157,13 @@ echo $this->doctype();
         <a href="http://twitter.com" target="_blank" class="pull-right social-link social-twitter"><i class="fa fa-twitter"></i></a>
         <a href="http://facebook.com" target="_blank" class="pull-right social-link social-fb"><i class="fa fa-facebook"></i></a>
     </div>
-    <!--<div class="cookies-popup">
-        <div class="container">
-            <span>We use cookies to improve your user experience. By using the website you agree to the terms of <a href="#">Privacy and cookies</a></span>
-            <button onclick="cookiesPopupClose()">OK</button>
-        </div>
-    </div>-->
+    <script type="text/javascript">
+        function searchSubmit(e)
+        {
+            if ($(".search-input").val().trim() == '')
+                e.preventDefault();
+        }
+    </script>
 </footer>
 </body>
 </html>

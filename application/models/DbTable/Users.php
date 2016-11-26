@@ -35,5 +35,15 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
 
         $this->insert($data);
     }
+
+    public function editUser($id, $name, $password)
+    {
+        $data = array(
+            'name' => $name,
+            'password' => $password
+        );
+
+        $this->update($data, "id=$id");
+    }
 }
 

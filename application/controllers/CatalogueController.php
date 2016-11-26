@@ -82,6 +82,9 @@ class CatalogueController extends Zend_Controller_Action
         // set title
         $this->view->headTitle('Cart');
 
+        if ($success = $this->_getParam('0'))
+            $this->view->successMessage = "You order was successfully accepted. We will contact you as soon as possible";
+
         // init DB
         $table = new Application_Model_DbTable_Products();
 
@@ -223,30 +226,22 @@ class CatalogueController extends Zend_Controller_Action
             if ($form->isValid($formData))
             {
                 // get fields from request
-                $firstName = $this->getRequest()->getPost('first-name');
-                $lastName = $this->getRequest()->getPost('last-name');
+                $firstName = $this->getRequest()->getPost('firstname');
+                $lastName = $this->getRequest()->getPost('lastname');
                 $phone = $this->getRequest()->getPost('phone');
                 $email = $this->getRequest()->getPost('email');
                 $comment = $this->getRequest()->getPost('comment');
-                $items = json_decode($cartList);
-
-
-                /*$this->view->items = $items;
-                $this->view->firstName = $firstName;
-                $this->view->lastName = $lastName;
-                $this->view->phone = $phone;
-                $this->view->email = $email;
-                $this->view->comment = $comment;*/
-
-                $this->view->debug = $cart->content;
+                $items = json_encode($cartList);
 
                 // init DB
                 $orders = new Application_Model_DbTable_Orders();
                 // put new order info to DB
                 $orders->addOrder($firstName, $lastName, $phone, $email, $comment, $items);
 
-                // redirect to account page
-                #$this->_helper->redirector->gotoRoute(array('controller' => 'catalogue', 'action' => 'index'));
+                $cart->content = "";
+
+                // redirect to this page page with success message
+                $this->_helper->redirector->gotoRoute(array('controller' => 'catalogue', 'action' => 'cart', array('success' => '1')));
             }
         }
     }

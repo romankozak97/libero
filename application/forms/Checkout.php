@@ -11,7 +11,7 @@ class Application_Form_Checkout extends Zend_Form
         $this->setAttrib('class', 'login-form clearfix center-block');
         $isEmptyMessage = 'Value is required and can\'t be empty!';
 
-        $firstName = new Zend_Form_Element_Text('first-name');
+        $firstName = new Zend_Form_Element_Text('firstname');
         $firstName->setAttrib('class', 'login-input')
             ->setLabel('First name')
             ->setAttrib('id', 'login-name')
@@ -22,7 +22,7 @@ class Application_Form_Checkout extends Zend_Form
             ->addFilter('StringTrim')
             ->addValidator('NotEmpty', true, array('messages' => array('isEmpty' => $isEmptyMessage)));
 
-        $lastName = new Zend_Form_Element_Text('last-name');
+        $lastName = new Zend_Form_Element_Text('lastname');
         $lastName->setAttrib('class', 'login-input')
             ->setLabel('Last name')
             ->setAttrib('id', 'login-name')

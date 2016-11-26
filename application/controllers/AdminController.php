@@ -332,10 +332,15 @@ class AdminController extends Zend_Controller_Action
         $this->view->order = $orderInfo;
 
         $this->view->items = array();
+        $totalPrice = 0;
         foreach (json_decode($orderInfo['items']) as $itemId)
         {
-            $this->view->items[] = $products->getProductById($itemId);
+            $product = $products->getProductById($itemId);
+            $this->view->items[] = $product;
+            $totalPrice += $product['price'];
         }
+
+        $this->view->totalPrice = $totalPrice;
     }
 
     /**

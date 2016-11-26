@@ -23,6 +23,12 @@
 			<a href="/auth/logout"><i class="fa fa-sign-out"></i> Logout</a>
 		</div>
 		<div class="col-md-8 col-lg-8 edit-area">
+			<?php if($this->errMessage): ?>
+				<div class="alert alert-danger">
+					<?php echo $this->errMessage ?>
+					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				</div>
+			<?php endif; ?>
 			<h4>Edit personal info</h4>
 			<p>Change information about yourself</p>
 			<?php echo $this->form ?>

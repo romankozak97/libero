@@ -20,13 +20,9 @@ class Application_Form_Edituser extends Zend_Form
         $email = new Zend_Form_Element_Text('email');
         $email->setAttrib('class', 'login-input')
             ->setAttrib('placeholder', 'Email')
-            ->setAttrib('disabled', 'disabled')
-            ->setRequired(true)
-            ->addFilter('StripTags')
-            ->addFilter('StringTrim')
-            ->addValidator('NotEmpty', true, array('messages' => array('isEmpty' => $isEmptyMessage)));
+            ->setAttrib('disabled', 'disabled');
 
-        $currentPassword = new Zend_Form_Element_Password('current-password');
+        $currentPassword = new Zend_Form_Element_Password('currentpassword');
         $currentPassword->setAttrib('class', 'login-input')
             ->setAttrib('placeholder', 'Current password')
             ->setRequired(true)
@@ -34,7 +30,7 @@ class Application_Form_Edituser extends Zend_Form
             ->addFilter('StringTrim')
             ->addValidator('NotEmpty', true, array('messages' => array('isEmpty' => $isEmptyMessage)));
 
-        $newPassword = new Zend_Form_Element_Password('new-password');
+        $newPassword = new Zend_Form_Element_Password('newpassword');
         $newPassword->setAttrib('class', 'login-input')
             ->setAttrib('placeholder', 'New password')
             ->setRequired(true)

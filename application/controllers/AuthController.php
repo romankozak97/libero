@@ -150,6 +150,41 @@ class AuthController extends Zend_Controller_Action
         $form->name->setValue($identity->name);
         $form->email->setValue($identity->email);
         $this->view->form = $form;
+
+        // if we have POST request
+        if ($this->getRequest()->isPost())
+        {
+            // get data from request
+            $formData = $this->getRequest()->getPost();
+
+            // if form is filled in properly
+            if ($form->isValid($formData))
+            {
+                // get fields from request
+                $name = $this->getRequest()->getPost('name');
+                $curPassword = $this->getRequest()->getPost('currentpassword');
+                $newPassword = $this->getRequest()->getPost('newpassword');
+
+                // init DB
+                $users = new Application_Model_DbTable_Users();
+
+                $dbPassword = $users->getUserById($identity->id)['password'];
+                if (md5($curPassword) === $dbPassword)
+                {
+                    if ($newPassword === "")
+                        $newPassword = $dbPassword;
+                    // put new user info to DB
+                    $users->editUser($identity->id, $name, md5($newPassword));
+
+                    // redirect to account page
+                    $this->_helper->redirector->gotoRoute(array('controller' => 'auth', 'action' => 'index'));
+                }
+                else {
+                    $this->view->errMessage = "Invalid current password. Try one more time";
+                }
+
+            }
+        }
     }
 
     public function ordersAction()

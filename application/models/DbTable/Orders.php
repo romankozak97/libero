@@ -43,6 +43,13 @@ class Application_Model_DbTable_Orders extends Zend_Db_Table_Abstract
      */
     public function addOrder($firstName, $lastName, $phone, $email, $comment, $items)
     {
+        $stream = @fopen('C:/wamp/www/libero/log.txt', 'a', false);
+        if (!$stream) {
+            throw new Exception('Failed to open stream');
+        }
+        $writer = new Zend_Log_Writer_Stream($stream);
+        $logger = new Zend_Log($writer);
+
         $data = array(
             'first_name' => $firstName,
             'last_name' => $lastName,
